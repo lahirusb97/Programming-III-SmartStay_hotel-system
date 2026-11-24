@@ -1,0 +1,115 @@
+SmartStay test run - fixed date 2026-11-16
+
+TC01   PASS Register guest with valid details                   
+       Expected: Registered 1 guest
+       Actual  : Registered 1 guest
+TC02   PASS Register guest with invalid email                   
+       Expected: Rejected: Email address is not valid.
+       Actual  : Rejected: Email address is not valid.
+TC03   PASS Register duplicate NIC                              
+       Expected: Rejected: A guest with this NIC/passport is already registered.
+       Actual  : Rejected: A guest with this NIC/passport is already registered.
+TC04   PASS Admin adds a new room                               
+       Expected: Rooms now: 7
+       Actual  : Rooms now: 7
+TC05   PASS Admin adds duplicate room number                    
+       Expected: Rejected: Room S101 already exists.
+       Actual  : Rejected: Room S101 already exists.
+TC06   PASS Admin updates bed type                              
+       Expected: KING
+       Actual  : KING
+TC07   PASS Admin changes status to Under Maintenance           
+       Expected: Under Maintenance
+       Actual  : Under Maintenance
+TC08   PASS Admin removes a room                                
+       Expected: Rooms now: 5
+       Actual  : Rooms now: 5
+TC09   PASS Search available Deluxe rooms                       
+       Expected: D201,D202
+       Actual  : D201,D202
+TC10   PASS Search skips room under maintenance                 
+       Expected: S102
+       Actual  : S102
+TC11   PASS Valid reservation, 3 nights                         
+       Expected: BK0001 advance 10,000.00
+       Actual  : BK0001 advance 10,000.00
+TC12   PASS Book room under maintenance                         
+       Expected: Rejected: Room S101 is Under Maintenance - only Available rooms can be booked.
+       Actual  : Rejected: Room S101 is Under Maintenance - only Available rooms can be booked.
+TC13   PASS Book less than 2 days ahead                         
+       Expected: Rejected: Bookings must be made at least 2 days before check-in.
+       Actual  : Rejected: Bookings must be made at least 2 days before check-in.
+TC14   PASS Book exactly 2 days ahead (boundary)                
+       Expected: BK0001
+       Actual  : BK0001
+TC15   PASS Check-out before check-in                           
+       Expected: Rejected: Check-out must be after check-in.
+       Actual  : Rejected: Check-out must be after check-in.
+TC16   PASS Overlapping dates on same room                      
+       Expected: Rejected: Room S101 is already booked for those dates.
+       Actual  : Rejected: Room S101 is already booked for those dates.
+TC17   PASS Back-to-back stay allowed (check-out day = next check-in)
+       Expected: BK0002
+       Actual  : BK0002
+TC18   PASS Too many guests for the room                        
+       Expected: Rejected: Number of guests must be between 1 and 4 for this room.
+       Actual  : Rejected: Number of guests must be between 1 and 4 for this room.
+TC19   PASS Bill: Standard, 2 nights, 2 guests                  
+       Expected: base 12,000.00 extra 0.00 disc 0.00 tax 1,200.00 final 3,200.00
+       Actual  : base 12,000.00 extra 0.00 disc 0.00 tax 1,200.00 final 3,200.00
+TC20   PASS Bill: Deluxe, 3 nights, 3 guests (1 extra)          
+       Expected: base 27,000.00 extra 4,500.00 disc 0.00 tax 3,780.00 final 25,280.00
+       Actual  : base 27,000.00 extra 4,500.00 disc 0.00 tax 3,780.00 final 25,280.00
+TC21   PASS Bill: Suite, 5 nights - discount applies (boundary) 
+       Expected: base 70,000.00 extra 0.00 disc 8,400.00 tax 9,240.00 final 60,840.00
+       Actual  : base 70,000.00 extra 0.00 disc 8,400.00 tax 9,240.00 final 60,840.00
+TC22   PASS Bill: Standard, 4 nights - no discount (boundary)   
+       Expected: base 24,000.00 extra 0.00 disc 0.00 tax 2,400.00 final 16,400.00
+       Actual  : base 24,000.00 extra 0.00 disc 0.00 tax 2,400.00 final 16,400.00
+TC23   PASS Bill: Family Suite, 6 nights, 7 guests (2 extra)    
+       Expected: base 108,000.00 extra 30,000.00 disc 12,960.00 tax 18,756.00 final 133,796.00
+       Actual  : base 108,000.00 extra 30,000.00 disc 12,960.00 tax 18,756.00 final 133,796.00
+TC24   PASS Invoice contains all required fields                
+       Expected: true
+       Actual  : true
+TC25   PASS Cancel booking made well in advance                 
+       Expected: CANCELLED
+       Actual  : CANCELLED
+TC26   PASS Cancel within 24 hours of check-in                  
+       Expected: Rejected: This booking cannot be cancelled (already cancelled or within 24 hours of check-in).
+       Actual  : Rejected: This booking cannot be cancelled (already cancelled or within 24 hours of check-in).
+TC27   PASS Cancelled room becomes free again                   
+       Expected: S101
+       Actual  : S101
+TC28   PASS Modify within 24 hours is refused                   
+       Expected: Rejected: A booking cannot be modified within 24 hours of check-in.
+       Actual  : Rejected: A booking cannot be modified within 24 hours of check-in.
+TC29   PASS Search reservation by guest name (partial, any case)
+       Expected: 1
+       Actual  : 1
+TC30   PASS Search reservation by booking ID                    
+       Expected: BK0001
+       Actual  : BK0001
+TC31   PASS Unknown booking ID returns nothing                  
+       Expected: null
+       Actual  : null
+TC32   PASS View reservations by check-in date                  
+       Expected: BK0002
+       Actual  : BK0002
+TC33   PASS Insertion sort orders by check-in (earliest first)  
+       Expected: BK0002,BK0003,BK0001
+       Actual  : BK0002,BK0003,BK0001
+TC34   PASS Polymorphism: each room type returns its own rate   
+       Expected: 6000,9000,14000,18000
+       Actual  : 6000,9000,14000,18000
+TC35   PASS Polymorphism: getRole() differs for Guest/Administrator
+       Expected: Guest,Administrator
+       Actual  : Guest,Administrator
+TC36   PASS Composition: invoice belongs to its reservation, removed on cancel
+       Expected: INV attached,removed on cancel
+       Actual  : INV attached,removed on cancel
+TC37   PASS Dependency: Administrator manages rooms through RoomManager
+       Expected: Rooms now: 7, U302 KING Under Maintenance
+       Actual  : Rooms now: 7, U302 KING Under Maintenance
+
+RESULT: 37 passed, 0 failed, 37 total
